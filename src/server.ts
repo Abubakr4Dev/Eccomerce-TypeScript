@@ -21,7 +21,9 @@ import { config } from './config/config';
 import { connectDB } from './db/connect';
 
 /** Routers */
-import { authRouters } from './routes/auth.router';
+import { authRouter } from './routes/auth.router';
+import { currentUser } from './middleware/current-user';
+import { sellerRouter } from './routes/seller.router';
 
 /** =======================
  *  End Of Requires Section
@@ -50,12 +52,15 @@ app.get('/ping', (req, res, next) => {
     res.status(200).json({ message: 'pong' });
 });
 
-/** Error Handdling not found page */
+/** Middlwares form Middlware Folder */
+app.use(currentUser(process.env.JWT_KEY!));
 
 /** Routers */
-app.use("/api/v1/",authRouters);
 
-/** User Error Hnaddlers */
+app.use('/api/v1/', authRouter);
+app.use('/api/v1/', sellerRouter);
+
+/** Error Hnaddlers */
 app.use(errorHandler);
 app.use(notFound);
 

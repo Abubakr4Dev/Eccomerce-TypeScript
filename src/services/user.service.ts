@@ -4,10 +4,10 @@ import { User } from '../models/user.model';
 export class UserService {
     constructor(public userModel: IUserModel) {}
 
-    async create(newUser: IUser) {
+    async create(createUserDto: IUser) {
         const user = new this.userModel({
-            email: newUser.email,
-            password: newUser.password
+            email: createUserDto.email,
+            password: createUserDto.password
         });
 
         return await user.save();

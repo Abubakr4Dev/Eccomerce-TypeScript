@@ -8,22 +8,22 @@ export class AuthService {
         public authenticationService: AuthenticationService
     ) {}
 
-    async signup(user: IUser) {
-        const existingUser = await this.userService.findOneByEmail(user.email);
+    async signup(createUserDto: IUser) {
+        const existingUser = await this.userService.findOneByEmail(createUserDto.email);
         if (existingUser) return { message: 'email is taken' };
 
-        const newUser = await this.userService.create(user);
+        const newUser = await this.userService.create(createUserDto);
 
-        const jwt = this.authenticationService.generateJwt({ email: user.email, userId: newUser.id }, process.env.JWT_KEY!);
+        const jwt = this.authenticationService.generateJwt({ email: createUserDto.email, userId: newUser.id }, process.env.JWT_KEY!);
 
         return { jwt };
     }
 
-    async signin(signinUser: IUser) {
-        const user = await this.userService.findOneByEmail(signinUser.email);
+    async signin(signinUserDto: IUser) {
+        const user = await this.userService.findOneByEmail(signinUserDto.email);
         if (!user) return { message: 'email is taken' };
 
-        const samePwd = await this.authenticationService.pwdCompare(user.password, signinUser.password);
+        const samePwd = await this.authenticationService.pwdCompare(user.password, signinUserDto.password);
 
         if (!samePwd) return { message: 'wrong credentials' };
 

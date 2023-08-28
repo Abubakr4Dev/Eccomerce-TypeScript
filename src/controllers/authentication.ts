@@ -1,16 +1,8 @@
 import { Request, Response, NextFunction } from 'express';
 import { authSevice } from '../services/user-auth.service';
 import { StatusCodes } from 'http-status-codes';
-import { JwtPayload } from '../interfaces/globals';
 import { BadRequestError } from '../errors/bad-request-error';
 
-declare global {
-    namespace Express {
-        interface Request {
-            currentUser?: JwtPayload;
-        }
-    }
-}
 
 export const signup = async (req: Request, res: Response, next: NextFunction) => {
     const { email, password } = req.body;
