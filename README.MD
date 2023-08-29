@@ -15,5 +15,5 @@ then go to src/config/config.ts , and edit MONGO_URL as your own connection stri
 After that run this command
 
 ```bash
-nodemon
+npm install && nodemon
 ```
