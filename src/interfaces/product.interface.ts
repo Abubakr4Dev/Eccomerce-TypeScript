@@ -13,7 +13,7 @@ export interface IProductDoc extends IProduct, Document {}
 
 export interface IProductModel extends Model<IProductDoc> {}
 
-/**  Product Interfaces Uses as a DTO */
+/**  Product DTOS */
 export interface ICreateProduct {
     title: string;
     price: number;

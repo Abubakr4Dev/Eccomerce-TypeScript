@@ -24,6 +24,7 @@ import { connectDB } from './db/connect';
 import { authRouter } from './routes/auth.router';
 import { currentUser } from './middleware/current-user';
 import { sellerRouter } from './routes/seller.router';
+import { buyerRouter } from './routes/buyer.routers';
 
 /** =======================
  *  End Of Requires Section
@@ -59,6 +60,7 @@ app.use(currentUser(process.env.JWT_KEY!));
 
 app.use('/api/v1/', authRouter);
 app.use('/api/v1/', sellerRouter);
+app.use('/api/v1/', buyerRouter);
 
 /** Error Hnaddlers */
 app.use(errorHandler);
